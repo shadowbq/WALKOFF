@@ -1,4 +1,8 @@
 language: python
+cache:
+  directories:
+    - $HOME/.cache/pip
+
 os:
     - linux
 
@@ -7,6 +11,16 @@ python:
     - "3.4"
     - "3.5"
     - "3.6"
+
+env:
+  global:
+    - SDL_VIDEODRIVER=dummy
+    - SDL_AUDIODRIVER=disk
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install python-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl1.2-dev python-numpy libportmidi-dev libjpeg-dev libtiff4-dev libx11-6 libX11-dev xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic; fi
+
 install: pip install -r requirements.txt
 script: python installDependencies.py && python runAllTests.py test
 branches:
