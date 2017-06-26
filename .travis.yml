@@ -13,4 +13,5 @@ branches:
     only: 
     - master
     - development
+    - /^issue-.*$/
 
